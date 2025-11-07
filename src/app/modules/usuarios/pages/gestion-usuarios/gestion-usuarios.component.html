@@ -1,0 +1,39 @@
+<div class="p-6">
+  <h2 class="text-2xl font-semibold mb-4">Gestión de Usuarios</h2>
+
+  <table class="table-auto w-full border-collapse border border-gray-300">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border px-4 py-2">ID</th>
+        <th class="border px-4 py-2">Nombre</th>
+        <th class="border px-4 py-2">Usuario</th>
+        <th class="border px-4 py-2">Correo</th>
+        <th class="border px-4 py-2">Rol</th>
+        <th class="border px-4 py-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of usuarios">
+        <td class="border px-4 py-2">{{ u.id_usuario }}</td>
+        <td class="border px-4 py-2">{{ u.nombre }} {{ u.apellido }}</td>
+        <td class="border px-4 py-2">{{ u.nombre_usuario }}</td>
+        <td class="border px-4 py-2">{{ u.correo }}</td>
+        <td class="border px-4 py-2">
+          <select [(ngModel)]="u.rol_id" class="border rounded p-1">
+            <option *ngFor="let r of roles" [ngValue]="r.id">{{ r.nombre_rol }}</option>
+          </select>
+        </td>
+        <td class="border px-4 py-2 text-center">
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+            (click)="actualizarRol(u)"
+          >
+            Guardar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="errorMsg" class="text-red-500 mt-4">{{ errorMsg }}</p>
+</div>
