@@ -11,6 +11,12 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/usuarios/pages/login/login.component')
       .then(m => m.LoginComponent) 
   },
+    // 🟢 Página de registro
+  { 
+    path: 'registro', 
+    loadComponent: () => import('./modules/usuarios/pages/registro/registro.component')
+      .then(m => m.RegistroComponent) 
+  },
 
   // 🟣 Dashboard protegido por autenticación
   { 

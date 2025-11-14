@@ -2,10 +2,31 @@
   <h2>Iniciar Sesión</h2>
 
   <form (ngSubmit)="onLogin()">
-    <input type="email" placeholder="Correo" [(ngModel)]="email" name="email" required />
-    <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required />
-    <button type="submit">Ingresar</button>
+    <input
+      type="email"
+      placeholder="Correo"
+      [(ngModel)]="email"
+      name="email"
+      required
+      autocomplete="username"
+    />
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [(ngModel)]="password"
+      name="password"
+      required
+      autocomplete="current-password"
+    />
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Ingresando...' : 'Ingresar' }}
+    </button>
   </form>
 
   <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <p class="small">
+    ¿No tienes cuenta?
+    <a routerLink="/registro">Regístrate aquí</a>
+  </p>
 </div>

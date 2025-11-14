@@ -1,0 +1,32 @@
+<div class="registro-container">
+
+  <h2>Crear una cuenta</h2>
+
+  <form (ngSubmit)="registrar()">
+
+    <label>Correo electrónico</label>
+    <input [(ngModel)]="email" name="email" type="email" required />
+
+    <label>Contraseña</label>
+    <input [(ngModel)]="password" name="password" type="password" required />
+
+    <label>Nombre</label>
+    <input [(ngModel)]="nombre" name="nombre" type="text" />
+
+    <label>Apellido</label>
+    <input [(ngModel)]="apellido" name="apellido" type="text" />
+
+    <button type="submit" [disabled]="cargando">
+      {{ cargando ? 'Creando...' : 'Registrarme' }}
+    </button>
+
+  </form>
+
+   <p class="small">
+    ¿Ya tienes una cuenta?
+    <a routerLink="/login">Inicia sesión aquí</a>
+  </p>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+
+</div>
