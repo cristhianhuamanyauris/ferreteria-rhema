@@ -31,11 +31,9 @@ export class LoginComponent {
       const roleId = await this.authService.getUserRole();
 
       // 🔀 3. Redirigir según rol
-      if (roleId === 1) {
-        this.router.navigate(['/gestion-usuarios']);  // Administrador
-      } else {
+      
         this.router.navigate(['/dashboard']);         // Usuario normal
-      }
+      
 
     } catch (error: any) {
       this.errorMsg = error?.message || 'Error al iniciar sesión.';

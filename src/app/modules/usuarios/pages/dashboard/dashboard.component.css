@@ -1,0 +1,41 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #222;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  margin: 10px 0;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.sidebar a.active {
+  font-weight: bold;
+  background: #444;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.logout {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background: crimson;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}

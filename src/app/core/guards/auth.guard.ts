@@ -13,14 +13,22 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(): Promise<boolean> {
-    const { user, error } = await this.authService.getUser();
+    try {
+      const session = await this.authService.getSession();
 
-    if (error || !user) {
+      if (!session?.user) {
+        console.log('AuthGuard: No hay sesión, redirigiendo a login...');
+        this.router.navigate(['/login']);
+        return false;
+      }
+
+      console.log('AuthGuard: Usuario autenticado:', session.user.email);
+      return true;
+    } catch (err) {
+      console.error('AuthGuard: error comprobando sesión ->', err);
       this.router.navigate(['/login']);
       return false;
     }
-
-    return true;
-
   }
 }
+

@@ -11,7 +11,10 @@ export interface Usuario {
   rol_id: number;
   nombre: string;
   apellido: string;
+  roles?: { nombre_rol: string }[]; // ⚡ Ahora es array
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -127,8 +130,37 @@ export class AuthService {
   }
 
   // 🟣 Obtener usuario autenticado directamente desde Auth
+  // dentro de AuthService (reemplaza solo getUser si lo tienes)
+  // 🟣 Obtener usuario autenticado directamente desde Auth (stable)
   async getUser(): Promise<{ user: User | null; error: any }> {
-    const { data, error } = await this.supabase.auth.getUser();
-    return { user: data?.user || null, error };
+    // Usamos getSession() en vez de getUser() para evitar bloques por NavigatorLock
+    try {
+      const session = await this.getSession();
+      return { user: session?.user || null, error: null };
+    } catch (err) {
+      // si algo falla, devolvemos el error
+      return { user: null, error: err };
+    }
   }
+
+  async getUsuarioActual(): Promise<Usuario & { rol?: string } | null> {
+    const session = await this.getSession();
+    if (!session?.user) return null;
+
+    const { data, error } = await supabase
+      .from('usuarios')
+      .select('id_usuario, nombre_usuario, auth_uid, rol_id, nombre, apellido, roles(nombre_rol)')
+      .eq('auth_uid', session.user.id)
+      .single();
+
+    if (error || !data) return null;
+
+    // ⚡ Accedemos al primer elemento del array de roles
+    return {
+      ...data,
+      rol: data.roles?.[0]?.nombre_rol ?? null
+    };
+  }
+
+
 }

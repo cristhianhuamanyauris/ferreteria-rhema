@@ -1,1 +1,31 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+
+  <!-- Barra lateral -->
+  <aside class="sidebar">
+
+    <h2>Menú</h2>
+
+    <nav>
+
+      <!-- Dashboard visible para todos -->
+      <a routerLink="/dashboard" routerLinkActive="active">🏠 Dashboard</a>
+
+      <!-- Visible solo para Admin -->
+      <a *ngIf="usuario?.rol_id === 1"
+         routerLink="/gestion-usuarios"
+         routerLinkActive="active">
+         👥 Gestión de Usuarios
+      </a>
+
+      <button class="logout" (click)="logout()">🚪 Cerrar Sesión</button>
+    </nav>
+
+  </aside>
+
+  <!-- Contenido -->
+  <main class="content">
+    <h1>Bienvenido, {{ usuario?.nombre_usuario }}</h1>
+    <p>Aquí irá el contenido de tu dashboard.</p>
+  </main>
+
+</div>
