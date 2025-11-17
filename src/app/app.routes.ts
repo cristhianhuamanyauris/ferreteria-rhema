@@ -1,48 +1,55 @@
-import { Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
-import { RoleGuard } from './core/guards/role.guard';
-import { DashboardComponent } from './modules/usuarios/pages/dashboard/dashboard.component';
-import { GestionUsuariosComponent } from './modules/usuarios/pages/gestion-usuarios/gestion-usuarios.component';
+  import { Routes } from '@angular/router';
+  import { AuthGuard } from './core/guards/auth.guard';
+  import { RoleGuard } from './core/guards/role.guard';
+  import { DashboardComponent } from './modules/usuarios/pages/dashboard-layout/dashboard/dashboard.component';
+  import { GestionUsuariosComponent } from './modules/usuarios/pages/dashboard-layout/gestion-usuarios/gestion-usuarios.component';
+  import { DashboardLayoutComponent } from './modules/usuarios/pages/dashboard-layout/dashboard-layout.component';
 
-export const routes: Routes = [
-  // 🟢 Página de login
-  { 
-    path: 'login', 
-    loadComponent: () => import('./modules/usuarios/pages/login/login.component')
-      .then(m => m.LoginComponent) 
-  },
-    // 🟢 Página de registro
-  { 
-    path: 'registro', 
-    loadComponent: () => import('./modules/usuarios/pages/registro/registro.component')
-      .then(m => m.RegistroComponent) 
-  },
 
-  // 🟣 Dashboard protegido por autenticación
-  { 
-    path: 'dashboard', 
-    component: DashboardComponent, 
-    canActivate: [AuthGuard] 
-  },
+  export const routes: Routes = [
+    // 🟢 Página de login
+    { 
+      path: 'login', 
+      loadComponent: () => import('./modules/usuarios/pages/login/login.component')
+        .then(m => m.LoginComponent) 
+    },
+      // 🟢 Página de registro
+    { 
+      path: 'registro', 
+      loadComponent: () => import('./modules/usuarios/pages/registro/registro.component')
+        .then(m => m.RegistroComponent) 
+    },
 
-  // 🔴 Gestión de usuarios: protegida por rol (solo admin, por ejemplo)
-  { 
-    path: 'gestion-usuarios', 
-    component: GestionUsuariosComponent, 
-    canActivate: [AuthGuard, RoleGuard], 
-    data: { role: 1 }  // Solo permite rol con id = 1 (admin)
-  },
-
-  // 🟠 Ruta por defecto o redirección
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-
-  // ⚫ Página de error o no autorizado
-  { 
-    path: 'unauthorized', 
-    loadComponent: () => import('./modules/shared/components/unauthorized/unauthorized.component')
-      .then(m => m.UnauthorizedComponent) 
+  // 🟣 TODAS LAS RUTAS DEL DASHBOARD VAN AQUÍ
+  {
+    path: '',
+    component: DashboardLayoutComponent,  // ← layout con sidebar
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'gestion-usuarios',
+        component: GestionUsuariosComponent,
+        canActivate: [RoleGuard],
+        data: { role: 1 }
+      },
+    ]
   },
 
-  // ⚫ Si la ruta no existe
-  { path: '**', redirectTo: '/login' }
-];
+
+    // 🟠 Ruta por defecto o redirección
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+    // ⚫ Página de error o no autorizado
+    { 
+      path: 'unauthorized', 
+      loadComponent: () => import('./modules/shared/components/unauthorized/unauthorized.component')
+        .then(m => m.UnauthorizedComponent) 
+    },
+
+    // ⚫ Si la ruta no existe
+    { path: '**', redirectTo: '/login' }
+  ];

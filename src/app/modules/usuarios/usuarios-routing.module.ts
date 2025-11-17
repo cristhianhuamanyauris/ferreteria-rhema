@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuarios.component';
+
+import { DashboardLayoutComponent } from './pages/dashboard-layout/dashboard-layout.component';
+import { DashboardComponent } from './pages/dashboard-layout/dashboard/dashboard.component';
+import { GestionUsuariosComponent } from './pages/dashboard-layout/gestion-usuarios/gestion-usuarios.component';
 
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { RoleGuard } from '../../core/guards/role.guard';
@@ -13,20 +15,21 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
 
-  // ⬇ Dashboard accesible para usuarios logueados
-  { 
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
-  },
+  {
+    path: '',     // ⬅️ RUTA PADRE
+    component: DashboardLayoutComponent,
+    canActivate: [AuthGuard],  // ⬅️ protege TODO el layout
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
 
-  // ⬇ Gestión de Usuarios accesible solo para ADMIN
-  { 
-    path: 'gestion-usuarios',
-    component: GestionUsuariosComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { rolesPermitidos: ['Administrador'] }
-  },
+      {
+        path: 'gestion-usuarios',
+        component: GestionUsuariosComponent,
+        canActivate: [RoleGuard],
+        data: { rolesPermitidos: ['Administrador'] }
+      }
+    ]
+  }
 ];
 
 @NgModule({

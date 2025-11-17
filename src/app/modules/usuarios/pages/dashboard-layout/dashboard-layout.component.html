@@ -1,0 +1,25 @@
+<div class="dashboard-container">
+
+  <!-- Barra lateral -->
+  <aside class="sidebar">
+    <h2>Menú</h2>
+
+    <nav>
+      <a routerLink="dashboard" routerLinkActive="active">🏠 Dashboard</a>
+
+      <a *ngIf="usuario?.rol_id === 1"
+         routerLink="gestion-usuarios"
+         routerLinkActive="active">
+         👥 Gestión de Usuarios
+      </a>
+
+      <button class="logout" (click)="logout()">🚪 Cerrar Sesión</button>
+    </nav>
+  </aside>
+
+  <!-- Contenido dinámico -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
