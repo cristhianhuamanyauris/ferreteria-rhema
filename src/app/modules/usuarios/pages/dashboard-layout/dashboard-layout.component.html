@@ -1,25 +1,86 @@
 <div class="dashboard-container">
 
-  <!-- Barra lateral -->
   <aside class="sidebar">
-    <h2>Menú</h2>
+    <!-- Cabecera / logo -->
+    <div class="sidebar-header">
+      <div class="brand-icon">+</div>
+      <div class="brand-text">
+        <h1>Ferretería Rhema</h1>
+      </div>
+    </div>
 
-    <nav>
-      <a routerLink="dashboard" routerLinkActive="active">🏠 Dashboard</a>
+    <h2 class="sidebar-title">Menú</h2>
 
-      <a *ngIf="usuario?.rol_id === 1"
-         routerLink="gestion-usuarios"
-         routerLinkActive="active">
-         👥 Gestión de Usuarios
+    <nav class="sidebar-nav">
+      <a
+        routerLink="dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-item"
+      >
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Dashboard</span>
       </a>
 
-      <button class="logout" (click)="logout()">🚪 Cerrar Sesión</button>
+      <a
+        *ngIf="usuario?.rol_id === 1 ||
+               usuario?.rol_id === 3 ||
+               usuario?.rol_id === 4 ||
+               usuario?.rol_id === 5"
+        routerLink="proveedores"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <span class="nav-icon">📦</span>
+        <span class="nav-label">Inventario</span>
+      </a>
+
+      <!-- Gestión de Usuarios: SOLO ADMIN (rol_id = 1) -->
+      <a
+        *ngIf="usuario?.rol_id === 1"
+        routerLink="gestion-usuarios"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Usuarios</span>
+      </a>
     </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="logout()">
+        <span>🚪</span>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
   </aside>
 
   <!-- Contenido dinámico -->
-  <main class="content">
-    <router-outlet></router-outlet>
+  <main class="dashboard-main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2>Dashboard</h2>
+        <p>Vista general del inventario y actividades</p>
+      </div>
+
+      <div class="topbar-user" *ngIf="usuario">
+        <div class="avatar">
+          {{ (usuario.nombre?.[0] || 'U') | uppercase }}
+        </div>
+        <div class="user-info">
+          <span class="user-name">
+            {{ usuario.nombre }} {{ usuario.apellido }}
+          </span>
+          <span class="user-role">
+            {{ usuario.rol || 'Usuario' }}
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <section class="main-content">
+      <router-outlet></router-outlet>
+    </section>
   </main>
 
 </div>

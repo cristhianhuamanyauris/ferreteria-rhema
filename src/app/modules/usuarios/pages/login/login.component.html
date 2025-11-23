@@ -1,32 +1,54 @@
-<div class="login-container">
-  <h2>Iniciar Sesión</h2>
+<div class="login-full">
+  <!-- FONDO SVG A PANTALLA COMPLETA (COMPONENTE COMPARTIDO) -->
+  <app-auth-background></app-auth-background>
 
-  <form (ngSubmit)="onLogin()">
-    <input
-      type="email"
-      placeholder="Correo"
-      [(ngModel)]="email"
-      name="email"
-      required
-      autocomplete="username"
-    />
-    <input
-      type="password"
-      placeholder="Contraseña"
-      [(ngModel)]="password"
-      name="password"
-      required
-      autocomplete="current-password"
-    />
-    <button type="submit" [disabled]="loading">
-      {{ loading ? 'Ingresando...' : 'Ingresar' }}
-    </button>
-  </form>
+  <!-- CONTENIDO ENCIMA DEL SVG (dos columnas 50/50) -->
+  <div class="col col-izquierda">
+    <div class="contenido-izquierdo">
+      <div class="logo-circulo">
+        <!-- aquí va tu logo -->
+        <span>F</span>
+      </div>
+      <p class="titulo-app">FERRETERÍA RHEMA</p>
+      <p class="texto-bienvenida">
+        Sistema de control de inventario para tu ferretería. Controla productos,
+        stock y movimientos de forma rápida y sencilla.
+      </p>
+    </div>
+  </div>
 
-  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+  <div class="col col-derecha">
+    <div class="login-container">
+      <h2>Iniciar Sesión</h2>
 
-  <p class="small">
-    ¿No tienes cuenta?
-    <a routerLink="/registro">Regístrate aquí</a>
-  </p>
+      <form (ngSubmit)="onLogin()">
+        <input
+          type="email"
+          placeholder="Correo"
+          [(ngModel)]="email"
+          name="email"
+          required
+          autocomplete="username"
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          [(ngModel)]="password"
+          name="password"
+          required
+          autocomplete="current-password"
+        />
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Ingresando...' : 'Ingresar' }}
+        </button>
+      </form>
+
+      <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+      <p class="texto-registro">
+        ¿No tienes cuenta?
+        <a routerLink="/registro">Regístrate aquí</a>
+      </p>
+    </div>
+  </div>
 </div>

@@ -1,32 +1,83 @@
-<div class="registro-container">
+<div class="login-full">
+  <!-- FONDO SVG A PANTALLA COMPLETA (COMPONENTE COMPARTIDO) -->
+  <app-auth-background></app-auth-background>
 
-  <h2>Crear una cuenta</h2>
+  <!-- COLUMNA IZQUIERDA (TEXTO) -->
+  <div class="col col-izquierda">
+    <div class="contenido-izquierdo">
+      <div class="logo-circulo">
+        <span>F</span>
+      </div>
+      <p class="titulo-app">FERRETERÍA RHEMA</p>
+      <p class="texto-bienvenida">
+        Crea tu cuenta para gestionar inventario, controlar stock y registrar
+        movimientos de tu ferretería.
+      </p>
+    </div>
+  </div>
 
-  <form (ngSubmit)="registrar()">
+  <!-- COLUMNA DERECHA (FORMULARIO REGISTRO) -->
+  <div class="col col-derecha">
+    <!-- usamos la MISMA clase login-container -->
+    <div class="login-container registro-container">
+      <h2>Crear una cuenta</h2>
 
-    <label>Correo electrónico</label>
-    <input [(ngModel)]="email" name="email" type="email" required />
+      <form (ngSubmit)="registrar()">
+        <!-- 1. NOMBRE -->
+        <div class="campo">
+          <label>Nombre</label>
+          <input
+            [(ngModel)]="nombre"
+            name="nombre"
+            type="text"
+            required
+          />
+        </div>
 
-    <label>Contraseña</label>
-    <input [(ngModel)]="password" name="password" type="password" required />
+        <!-- 2. APELLIDO -->
+        <div class="campo">
+          <label>Apellido</label>
+          <input
+            [(ngModel)]="apellido"
+            name="apellido"
+            type="text"
+            required
+          />
+        </div>
 
-    <label>Nombre</label>
-    <input [(ngModel)]="nombre" name="nombre" type="text" />
+        <!-- 3. CORREO -->
+        <div class="campo">
+          <label>Correo electrónico</label>
+          <input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            required
+          />
+        </div>
 
-    <label>Apellido</label>
-    <input [(ngModel)]="apellido" name="apellido" type="text" />
+        <!-- 4. CONTRASEÑA -->
+        <div class="campo">
+          <label>Contraseña</label>
+          <input
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            required
+          />
+        </div>
 
-    <button type="submit" [disabled]="cargando">
-      {{ cargando ? 'Creando...' : 'Registrarme' }}
-    </button>
+        <button type="submit" [disabled]="cargando">
+          {{ cargando ? 'Creando...' : 'Registrarme' }}
+        </button>
+      </form>
 
-  </form>
+      <p class="texto-registro">
+        ¿Ya tienes una cuenta?
+        <a routerLink="/login">Inicia sesión aquí</a>
+      </p>
 
-   <p class="small">
-    ¿Ya tienes una cuenta?
-    <a routerLink="/login">Inicia sesión aquí</a>
-  </p>
-
-  <p *ngIf="mensaje">{{ mensaje }}</p>
-
+      <p *ngIf="mensaje" class="mensaje-info">{{ mensaje }}</p>
+    </div>
+  </div>
 </div>

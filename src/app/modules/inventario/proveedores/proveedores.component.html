@@ -1,0 +1,120 @@
+<div class="pagina-modulo">
+    <div class="contenedor-modulo">
+      <header class="encabezado-modulo">
+        <div>
+          <h1>Proveedores</h1>
+          <p>Gestiona los proveedores que abastecen la ferretería.</p>
+        </div>
+      </header>
+      <section class="tarjeta-formulario">
+        <div class="form-encabezado">
+          <h2>{{ editando ? 'Editar proveedor' : 'Nuevo proveedor' }}</h2>
+          <button type="button" class="btn-secundario" (click)="nuevo()">
+            Limpiar formulario
+          </button>
+        </div>
+  
+        <form (ngSubmit)="guardar()" class="formulario">
+          <div class="fila">
+            <div class="campo">
+              <label>Nombre / Razón social *</label>
+              <input
+                type="text"
+                [(ngModel)]="proveedorActual.nombre"
+                name="nombre"
+                required
+              />
+            </div>
+          </div>
+  
+          <div class="fila">
+            <div class="campo">
+              <label>Contacto</label>
+              <input
+                type="text"
+                [(ngModel)]="proveedorActual.contacto"
+                name="contacto"
+              />
+            </div>
+            <div class="campo">
+              <label>Teléfono</label>
+              <input
+                type="text"
+                [(ngModel)]="proveedorActual.telefono"
+                name="telefono"
+              />
+            </div>
+          </div>
+  
+          <div class="fila">
+            <div class="campo">
+              <label>Dirección</label>
+              <input
+                type="text"
+                [(ngModel)]="proveedorActual.direccion"
+                name="direccion"
+              />
+            </div>
+          </div>
+  
+          <div class="acciones-formulario">
+            <button type="submit" class="btn-primario">
+              {{ editando ? 'Guardar cambios' : 'Registrar proveedor' }}
+            </button>
+          </div>
+        </form>
+      </section>
+      <section class="barra-herramientas">
+        <div class="grupo-buscador">
+          <input
+            type="text"
+            placeholder="Buscar por nombre, contacto, teléfono o dirección..."
+            [(ngModel)]="terminoBusqueda"
+          />
+        </div>
+        <div class="resumen-lista">
+          <span>{{ proveedoresFiltrados.length }} proveedor(es)</span>
+        </div>
+      </section>
+      <section class="tabla-contenedor">
+        <table class="tabla-proveedores" *ngIf="proveedoresFiltrados.length; else sinDatos">
+          <thead>
+            <tr>
+              <th>Nombre / Razón social</th>
+              <th>Contacto</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th class="col-acciones">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of proveedoresFiltrados">
+              <td>
+                <div class="celda-principal">
+                  <span class="titulo">{{ p.nombre }}</span>
+                  <span class="subtitulo" *ngIf="p.id">ID: {{ p.id }}</span>
+                </div>
+              </td>
+              <td>{{ p.contacto || '—' }}</td>
+              <td>{{ p.telefono || '—' }}</td>
+              <td>{{ p.direccion || '—' }}</td>
+              <td class="col-acciones">
+                <button class="btn-accion" (click)="editar(p)">Editar</button>
+                <button class="btn-accion btn-peligro" (click)="eliminar(p)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <ng-template #sinDatos>
+          <div class="estado-vacio">
+            <p>No hay proveedores registrados.</p>
+            <p>Usa el formulario de arriba para registrar el primero.</p>
+          </div>
+        </ng-template>
+      </section>
+    </div>
+  </div>
+  
