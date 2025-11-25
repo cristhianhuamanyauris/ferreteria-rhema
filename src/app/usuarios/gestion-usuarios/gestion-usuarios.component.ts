@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../../../core/services/auth.service';
-import { supabase } from '../../../../../core/services/supabase.client'; // ✅ cliente global
+import { AuthService } from '../../core/services/auth.service';
+import { supabase } from '../../core/services/supabase.client'; // ✅ cliente global
 
 @Component({
   selector: 'app-gestion-usuarios',

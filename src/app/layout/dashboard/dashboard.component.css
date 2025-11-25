@@ -1,0 +1,22 @@
+.dashboard-wrapper {
+  padding: 2rem;
+  color: #333;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.dashboard-content {
+  border: 2px dashed #aaa;
+  padding: 2rem;
+  border-radius: 10px;
+  background: #fafafa;
+}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { supabase } from '../../../../core/services/supabase.client';
+import { supabase } from '../../core/services/supabase.client';
 import { AuthBackgroundComponent } from '../auth-background.component';
 
 @Component({

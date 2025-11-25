@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../../../core/services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthBackgroundComponent } from '../auth-background.component';
@@ -8,7 +8,7 @@ import { AuthBackgroundComponent } from '../auth-background.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AuthBackgroundComponent,AuthBackgroundComponent],
+  imports: [CommonModule, FormsModule, RouterModule, AuthBackgroundComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css', '../auth-layout.styles.css']
 })
@@ -25,16 +25,14 @@ export class LoginComponent {
     this.loading = true;
 
     try {
-      // 🔐 1. Autenticar en Supabase
+      // 🔐 1. Autenticar con Supabase
       await this.authService.login(this.email, this.password);
 
-      // 🔍 2. Obtener el rol desde tabla usuarios
+      // 🔍 2. Obtener rol
       const roleId = await this.authService.getUserRole();
 
-      // 🔀 3. Redirigir según rol
-      
-        this.router.navigate(['/dashboard']);         // Usuario normal
-      
+      // 🔀 3. Redirigir a la raíz → dashboard layout toma el control
+      this.router.navigate(['/']);
 
     } catch (error: any) {
       this.errorMsg = error?.message || 'Error al iniciar sesión.';

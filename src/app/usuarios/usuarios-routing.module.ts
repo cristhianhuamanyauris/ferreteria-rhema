@@ -1,12 +1,13 @@
+/*
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 
-import { DashboardLayoutComponent } from './pages/dashboard-layout/dashboard-layout.component';
+import { DashboardLayoutComponent } from '../../layout/dashboard-layout/dashboard-layout.component';
 import { DashboardComponent } from './pages/dashboard-layout/dashboard/dashboard.component';
-import { GestionUsuariosComponent } from './pages/dashboard-layout/gestion-usuarios/gestion-usuarios.component';
+import { GestionUsuariosComponent } from './gestion-usuarios/gestion-usuarios.component';
 
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { RoleGuard } from '../../core/guards/role.guard';
@@ -37,3 +38,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class UsuariosRoutingModule {}
+*/
