@@ -36,6 +36,12 @@
         canActivate: [RoleGuard],
         data: { role: 1 }
       },
+      {
+        path: 'proveedores',
+        loadComponent: () =>
+          import('./modules/inventario/proveedores/proveedores.component')
+            .then(m => m.ProveedoresComponent)
+      },
     ]
   },
 
